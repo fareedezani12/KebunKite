@@ -24,6 +24,7 @@ import { Route as AuthenticatedScheduleRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedSetupRouteImport } from './routes/_authenticated/setup'
 import { Route as AuthenticatedCommunitiesIndexRouteImport } from './routes/_authenticated/communities.index'
 import { Route as AuthenticatedCommunitiesIdRouteImport } from './routes/_authenticated/communities.$id'
+import { Route as AuthenticatedCommunitiesIdChatRouteImport } from './routes/_authenticated/communities.$id_.chat'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -102,6 +103,12 @@ const AuthenticatedCommunitiesIdRoute =
     path: '/communities/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedCommunitiesIdChatRoute =
+  AuthenticatedCommunitiesIdChatRouteImport.update({
+    id: '/communities/$id_/chat',
+    path: '/communities/$id/chat',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/setup': typeof AuthenticatedSetupRoute
   '/communities/$id': typeof AuthenticatedCommunitiesIdRoute
   '/communities/': typeof AuthenticatedCommunitiesIndexRoute
+  '/communities/$id/chat': typeof AuthenticatedCommunitiesIdChatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -134,6 +142,7 @@ export interface FileRoutesByTo {
   '/setup': typeof AuthenticatedSetupRoute
   '/communities/$id': typeof AuthenticatedCommunitiesIdRoute
   '/communities': typeof AuthenticatedCommunitiesIndexRoute
+  '/communities/$id/chat': typeof AuthenticatedCommunitiesIdChatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -152,6 +161,7 @@ export interface FileRoutesById {
   '/_authenticated/setup': typeof AuthenticatedSetupRoute
   '/_authenticated/communities/$id': typeof AuthenticatedCommunitiesIdRoute
   '/_authenticated/communities/': typeof AuthenticatedCommunitiesIndexRoute
+  '/_authenticated/communities/$id_/chat': typeof AuthenticatedCommunitiesIdChatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/setup'
     | '/communities/$id'
     | '/communities/'
+    | '/communities/$id/chat'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/setup'
     | '/communities/$id'
     | '/communities'
+    | '/communities/$id/chat'
   id:
     | '__root__'
     | '/'
@@ -203,6 +215,7 @@ export interface FileRouteTypes {
     | '/_authenticated/setup'
     | '/_authenticated/communities/$id'
     | '/_authenticated/communities/'
+    | '/_authenticated/communities/$id_/chat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -319,6 +332,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCommunitiesIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/communities/$id_/chat': {
+      id: '/_authenticated/communities/$id_/chat'
+      path: '/communities/$id/chat'
+      fullPath: '/communities/$id/chat'
+      preLoaderRoute: typeof AuthenticatedCommunitiesIdChatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -334,6 +354,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSetupRoute: typeof AuthenticatedSetupRoute
   AuthenticatedCommunitiesIdRoute: typeof AuthenticatedCommunitiesIdRoute
   AuthenticatedCommunitiesIndexRoute: typeof AuthenticatedCommunitiesIndexRoute
+  AuthenticatedCommunitiesIdChatRoute: typeof AuthenticatedCommunitiesIdChatRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -348,6 +369,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSetupRoute: AuthenticatedSetupRoute,
   AuthenticatedCommunitiesIdRoute: AuthenticatedCommunitiesIdRoute,
   AuthenticatedCommunitiesIndexRoute: AuthenticatedCommunitiesIndexRoute,
+  AuthenticatedCommunitiesIdChatRoute: AuthenticatedCommunitiesIdChatRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
