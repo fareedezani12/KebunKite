@@ -34,14 +34,14 @@ function Harvest() {
   async function save(e: React.FormEvent) {
     e.preventDefault();
     const q = Number(f.quantity_kg), s = Number(f.surplus_kg || 0);
-    if (!f.crop_id || !(q > 0)) return toast.error("Choose a crop and enter quantity.");
-    if (s > q) return toast.error("Surplus can't exceed quantity.");
+    if (!f.crop_id || !(q > 0)) return void toast.error("Choose a crop and enter quantity.");
+    if (s > q) return void toast.error("Surplus can't exceed quantity.");
     setBusy(true);
     const { error } = await supabase.from("harvest_outputs").insert({
       community_id: f.community_id || null, household_id: user.id, crop_id: f.crop_id, harvest_date: f.harvest_date, quantity_kg: q, surplus_kg: s,
     });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     await qc.invalidateQueries();
     setOpen(false);
     setF((x) => ({ ...x, crop_id: "", quantity_kg: "", surplus_kg: "" }));
@@ -50,7 +50,7 @@ function Harvest() {
 
   async function share(id: string) {
     const { error } = await supabase.from("harvest_outputs").update({ shared_at: new Date().toISOString() }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     await qc.invalidateQueries();
     toast.success("Shared with community members");
   }

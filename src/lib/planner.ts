@@ -130,7 +130,7 @@ export function scheduleFor(crop: string, start = new Date()) {
   const offsets: Record<string, number> = { Prepare: 0, Plant: 1, Water: 3, Monitor: 10, Harvest: harvestOffset };
   return ACTIVITIES.map((a) => ({
     activity: a,
-    planting_date: addDays(start, offsets[a]),
+    planting_date: addDays(start, offsets[a] ?? 0),
     expected_harvest_date: addDays(start, harvestOffset),
   }));
 }

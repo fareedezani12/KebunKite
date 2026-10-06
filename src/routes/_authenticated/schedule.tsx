@@ -21,7 +21,7 @@ function Schedule() {
 
   async function setStatus(id: string, status: string) {
     const { error } = await supabase.from("planting_schedule").update({ status }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     qc.invalidateQueries({ queryKey: ["schedule"] });
   }
 
@@ -43,7 +43,7 @@ function Schedule() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {[...groups.values()].map((items) => {
-            const first = items[0];
+            const first = items[0]!;
             const done = items.filter((i) => i.status === "Completed").length;
             return (
               <div key={first.recommendation_id ?? first.id} className="card-surface p-5">

@@ -45,12 +45,12 @@ function Setup() {
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    if (!f.farming_technique || !f.skill_level) return toast.error("Choose a farming technique and skill level.");
+    if (!f.farming_technique || !f.skill_level) return void toast.error("Choose a farming technique and skill level.");
     setBusy(true);
     try {
       const { error } = await supabase.from("profiles").upsert({
         id: user.id,
-        email: user.email,
+        email: user.email ?? null,
         full_name: f.full_name.trim(),
         household_members: Number(f.household_members) || 1,
         location: f.location.trim(),

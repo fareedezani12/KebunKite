@@ -65,7 +65,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   );
 }
 
-export function PageHeader({ title, subtitle, back, action }: { title: string; subtitle?: string; back?: boolean; action?: ReactNode }) {
+export function PageHeader({ title, subtitle, back, action }: { title: string; subtitle?: string | undefined; back?: boolean; action?: ReactNode }) {
   const navigate = useNavigate();
   return (
     <div className="mb-5 flex items-start justify-between gap-3">

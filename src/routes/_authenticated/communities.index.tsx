@@ -27,7 +27,7 @@ function Discover() {
     setJoining(id);
     const { error } = await supabase.from("community_members").insert({ community_id: id, user_id: user.id, role: "member" });
     setJoining(null);
-    if (error && error.code !== "23505") return toast.error(error.message);
+    if (error && error.code !== "23505") return void toast.error(error.message);
     await qc.invalidateQueries();
     toast.success("You joined the community!");
     navigate({ to: "/communities/$id", params: { id } });

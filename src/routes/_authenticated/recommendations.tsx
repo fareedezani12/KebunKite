@@ -61,7 +61,7 @@ function Recommendations() {
     if (!adjust) return;
     const n = Math.max(1, Number(qty) || 1);
     const { error } = await supabase.from("crop_recommendations").update({ recommended_quantity: n }).eq("id", adjust.id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     await supabase.from("planting_schedule").update({ quantity: n }).eq("recommendation_id", adjust.id);
     await qc.invalidateQueries();
     setAdjust(null);

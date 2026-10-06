@@ -52,9 +52,9 @@ function Planner() {
   }, [needsQ.data]);
 
   async function generate() {
-    if (!communityId) return toast.error("Choose a community first.");
-    if (!tech || !skill) return toast.error("Choose a technique and skill level.");
-    if (!Object.keys(needs).length) return toast.error("Select at least one crop your community needs.");
+    if (!communityId) return void toast.error("Choose a community first.");
+    if (!tech || !skill) return void toast.error("Choose a technique and skill level.");
+    if (!Object.keys(needs).length) return void toast.error("Select at least one crop your community needs.");
     setBusy(true);
     try {
       const recs = generatePlan({ householdMembers: Number(members), growingArea: Number(area), technique: tech, skill, needs });

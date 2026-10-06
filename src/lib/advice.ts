@@ -11,7 +11,7 @@ export const SUGGESTED = [
   "Which crops work well in hydroponics?",
 ];
 
-export function answer(q: string, ctx: Ctx): string {
+export function answer(q: string, ctx: { technique?: string | null | undefined; skill?: string | null | undefined; crops: string[] }): string {
   const t = q.toLowerCase();
   const tech = ctx.technique ?? "Soil";
   const skill = ctx.skill ?? "Beginner";
