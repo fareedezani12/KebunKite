@@ -1,26 +1,155 @@
-# Pixel Perfect View
+# 🌱 KebunKite
 
-Implement exactly the screenshot and nothing else
+### Growing Communities, Securing Food.
 
-This project was built with [Lovable](https://lovable.dev).
+KebunKite is an AI-powered community food security platform designed to help communities plan, grow, monitor, harvest, and share food more effectively.
 
-**Live app**: https://kebunkite.lovable.app
+🔗 **Live Demo:** https://kebunkiteapp.netlify.app/
 
-## Build with Lovable
+---
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/38b563fd-e3c7-4d1f-9275-23cfeb763d05).
+## 🌾 About KebunKite
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+KebunKite focuses on **community-level food planning**, rather than only helping individuals manage individual plants.
 
-## Development
+The platform helps communities answer four important questions:
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+- 🌱 What should we grow?
+- 📦 How much should we grow?
+- 📅 When should we plant and harvest?
+- 🤝 How can we make every harvest count?
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+KebunKite combines household food needs, growing capacity, farming techniques, and community skill levels to create practical crop recommendations and planting schedules.
+
+### Our vision
+
+> **From managing individual plants to planning community food security.**
+
+---
+
+## 🚀 Core Features
+
+### 🧠 Community Kebun Planner
+
+The core innovation of KebunKite.
+
+The planner uses community information such as:
+
+- Household size
+- Food needs
+- Growing area
+- Farming technique
+- Community skill level
+
+to recommend:
+
+- Suitable crops
+- Recommended quantities
+- Estimated harvest periods
+- Planting schedules
+
+---
+
+### 🌱 Crop Recommendations
+
+KebunKite recommends suitable crops based on community needs and growing conditions.
+
+Example crops include:
+
+- Kangkung
+- Sawi
+- Bayam
+- Kailan
+- Lettuce
+- Tomato
+- Chilli
+- Cucumber
+- Long Bean
+- Carrot
+
+---
+
+### 📅 Planting & Harvest Schedule
+
+Communities can organize crop activities through a simple schedule covering:
+
+- Preparation
+- Planting
+- Watering
+- Monitoring
+- Harvesting
+
+---
+
+### 📊 Crop Output & History
+
+Track community food production through:
+
+- Harvest quantity
+- Harvest dates
+- Crop output
+- Surplus production
+
+This helps communities understand their food production over time.
+
+---
+
+### 🤝 Community Harvest Exchange
+
+Surplus harvest can be shared within the community, helping reduce food waste and encourage resource sharing.
+
+---
+
+### 🌿 Plant Health Analysis
+
+Users can analyze plant health and receive prototype recommendations for possible issues such as:
+
+- Watering stress
+- Nutrient-related problems
+- General plant health concerns
+
+---
+
+### 💡 Farming Advisor
+
+An interactive farming assistant that provides practical guidance on topics such as:
+
+- What to plant
+- When to plant
+- Watering
+- Beginner-friendly crops
+- Yellowing leaves
+- Hydroponic crops
+
+---
+
+## 🎯 Problem
+
+Many community gardens grow food without a coordinated plan based on actual community needs.
+
+This can lead to:
+
+- Growing crops that are not in high demand
+- Overproduction of certain crops
+- Poor planting timing
+- Uneven resource allocation
+- Food surplus and waste
+- Limited visibility of community food production
+
+---
+
+## 💡 Our Solution
+
+KebunKite connects:
+
+**Community Needs → Planning → Growing → Monitoring → Harvest → Sharing → Impact**
+
+Instead of simply asking:
+
+> “How do I grow this plant?”
+
+KebunKite asks:
+
+> **“What does our community need to grow?”**
+
+---
