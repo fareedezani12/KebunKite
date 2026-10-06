@@ -139,3 +139,13 @@ export function SuitabilityBadge({ level }: { level?: string | null }) {
     level === "High" ? "bg-secondary text-primary" : level === "Medium" ? "bg-sun/25 text-sun-foreground" : "bg-harvest/20 text-foreground";
   return <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${cls}`}>{level ?? "—"} suitability</span>;
 }
+
+export function Avatar({ name, photo, size = "md" }: { name?: string | null; photo?: string | null; size?: "sm" | "md" | "lg" }) {
+  const dim = size === "sm" ? "h-8 w-8 text-xs" : size === "lg" ? "h-12 w-12 text-base" : "h-10 w-10 text-sm";
+  const letters = (name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join("");
+  return photo ? (
+    <img src={photo} alt={name ?? "Member"} className={`${dim} shrink-0 rounded-full object-cover`} />
+  ) : (
+    <span className={`${dim} grid shrink-0 place-items-center rounded-full bg-secondary font-semibold text-primary`}>{letters}</span>
+  );
+}
