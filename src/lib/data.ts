@@ -105,7 +105,6 @@ export function useLatestPlan(communityId?: string | null) {
       let q = supabase
         .from("crop_plans")
         .select("*, communities(name), crop_recommendations(*, crops(*))")
-        .eq("created_by", user.id)
         .order("created_at", { ascending: false })
         .limit(1);
       if (communityId) q = q.eq("community_id", communityId);
@@ -118,13 +117,13 @@ export function useLatestPlan(communityId?: string | null) {
 
 export function useSchedule() {
   const user = useUser();
+  // RLS returns the user's own schedule plus schedules from their communities' plans
   return useQuery({
     queryKey: ["schedule", user.id],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("planting_schedule")
         .select("*, crops(crop_name)")
-        .eq("household_id", user.id)
         .order("planting_date");
       if (error) throw error;
       return data;
@@ -164,4 +163,24 @@ export function greeting() {
 export function fmtDate(d?: string | null) {
   if (!d) return "—";
   return new Date(d).toLocaleDateString("en-MY", { day: "numeric", month: "short" });
+}
+
+export type PublicProfile = { id: string; full_name: string | null; profile_photo: string | null };
+
+/** Name + photo for any users (safe subset, via a security-definer function). */
+export function usePublicProfiles(ids: (string | null | undefined)[]) {
+  const unique = Array.from(new Set(ids.filter(Boolean) as string[])).sort();
+  return useQuery({
+    queryKey: ["publicProfiles", unique.join(",")],
+    enabled: unique.length > 0,
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc("get_public_profiles", { _ids: unique });
+      if (error) throw error;
+      return new Map((data ?? []).map((p) => [p.id, p as PublicProfile]));
+    },
+  });
+}
+
+export function initials(name?: string | null) {
+  return (name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join("");
 }
