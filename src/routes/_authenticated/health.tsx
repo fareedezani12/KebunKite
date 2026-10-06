@@ -4,7 +4,6 @@ import { Camera, Sparkles, HeartPulse, AlertTriangle, CheckCircle2, Droplets, Fl
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { PageHeader } from "@/components/kebun";
-import { ChoiceGroup } from "@/components/NeedsPicker";
 import { CROP_NAMES } from "@/lib/planner";
 import { analyzePlant, SYMPTOMS, type HealthResult } from "@/lib/advice";
 
@@ -97,5 +96,3 @@ function Health() {
   );
 }
 
-// keep ChoiceGroup tree-shaken import valid
-void ChoiceGroup;
