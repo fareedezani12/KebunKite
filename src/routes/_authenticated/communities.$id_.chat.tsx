@@ -10,7 +10,7 @@ import { Avatar, Empty, ErrorState, Loading, PageHeader } from "@/components/keb
 import { useMemberCount, useMemberships, usePublicProfiles, useUser } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/communities/$id_/chat")({
-  head: () => ({ meta: [{ title: "Community Chat — KebunKite" }, { name: "description", content: "Chat with your neighbours in your growing community." }] }),
+  head: () => ({ meta: [{ title: "Community Chat — KebunKite" }, { name: "description", content: "Chat with your neighbours in your growing community." }, { property: "og:title", content: "Community Chat — KebunKite" }, { property: "og:description", content: "Chat with your neighbours in your growing community." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: CommunityChat,
 });
 

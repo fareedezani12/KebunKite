@@ -11,7 +11,7 @@ import { Loading, PageHeader } from "@/components/kebun";
 import { ChoiceGroup, NeedsPicker } from "@/components/NeedsPicker";
 
 export const Route = createFileRoute("/_authenticated/setup")({
-  head: () => ({ meta: [{ title: "Profile setup — KebunKite" }, { name: "description", content: "Tell KebunKite about your household and food needs." }] }),
+  head: () => ({ meta: [{ title: "Profile setup — KebunKite" }, { name: "description", content: "Tell KebunKite about your household and food needs." }, { property: "og:title", content: "Profile setup — KebunKite" }, { property: "og:description", content: "Tell KebunKite about your household and food needs." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Setup,
 });
 

@@ -9,8 +9,7 @@ export const Route = createFileRoute("/")({
       { title: "KebunKite — Growing Communities, Securing Food" },
       { name: "description", content: "Plan, grow and share food as a community with KebunKite's community kebun planner." },
       { property: "og:title", content: "KebunKite — Growing Communities, Securing Food" },
-      { property: "og:description", content: "From managing individual plants to planning community food security." },
-    ],
+      { property: "og:description", content: "From managing individual plants to planning community food security." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ],
   }),
   component: Index,
 });

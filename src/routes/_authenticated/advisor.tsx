@@ -8,7 +8,7 @@ import { useNeeds, useProfile } from "@/lib/data";
 import { answer, SUGGESTED } from "@/lib/advice";
 
 export const Route = createFileRoute("/_authenticated/advisor")({
-  head: () => ({ meta: [{ title: "Farming Advisor — KebunKite" }, { name: "description", content: "Ask the KebunKite farming assistant for growing guidance." }] }),
+  head: () => ({ meta: [{ title: "Farming Advisor — KebunKite" }, { name: "description", content: "Ask the KebunKite farming assistant for growing guidance." }, { property: "og:title", content: "Farming Advisor — KebunKite" }, { property: "og:description", content: "Ask the KebunKite farming assistant for growing guidance." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Advisor,
 });
 

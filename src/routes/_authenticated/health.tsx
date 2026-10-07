@@ -8,7 +8,7 @@ import { CROP_NAMES } from "@/lib/planner";
 import { analyzePlant, SYMPTOMS, type HealthResult } from "@/lib/advice";
 
 export const Route = createFileRoute("/_authenticated/health")({
-  head: () => ({ meta: [{ title: "Plant Health Analysis — KebunKite" }, { name: "description", content: "AI-assisted plant health check for your crops." }] }),
+  head: () => ({ meta: [{ title: "Plant Health Analysis — KebunKite" }, { name: "description", content: "AI-assisted plant health check for your crops." }, { property: "og:title", content: "Plant Health Analysis — KebunKite" }, { property: "og:description", content: "AI-assisted plant health check for your crops." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Health,
 });
 

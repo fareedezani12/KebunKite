@@ -13,8 +13,7 @@ export const Route = createFileRoute("/reset-password")({
       { title: "Set a new password — KebunKite" },
       { name: "description", content: "Choose a new password for your KebunKite account." },
       { property: "og:title", content: "Reset password — KebunKite" },
-      { property: "og:description", content: "Choose a new password for your KebunKite account." },
-    ],
+      { property: "og:description", content: "Choose a new password for your KebunKite account." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ],
   }),
   component: ResetPassword,
 });
