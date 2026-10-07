@@ -37,8 +37,9 @@ function Planner() {
   const [needs, setNeeds] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    if (!communityId && memberships.data?.[0]) setCommunityId(memberships.data[0].community_id);
-  }, [memberships.data, communityId]);
+    const first = memberships.data?.find((m) => m.communities?.admin_id === user.id);
+    if (!communityId && first) setCommunityId(first.community_id);
+  }, [memberships.data, communityId, user.id]);
   useEffect(() => {
     const p = profile.data;
     if (!p) return;
@@ -51,8 +52,12 @@ function Planner() {
     if (needsQ.data?.length) setNeeds(Object.fromEntries(needsQ.data.map((n) => [n.crop_name, n.quantity_needed])));
   }, [needsQ.data]);
 
+  const adminOf = (memberships.data ?? []).filter((m) => m.communities?.admin_id === user.id);
+
   async function generate() {
     if (!communityId) return void toast.error("Choose a community first.");
+    const selected = memberships.data?.find((m) => m.community_id === communityId)?.communities;
+    if (!selected || selected.admin_id !== user.id) return void toast.error("Only the community administrator can generate a plan.");
     if (!tech || !skill) return void toast.error("Choose a technique and skill level.");
     if (!Object.keys(needs).length) return void toast.error("Select at least one crop your community needs.");
     setBusy(true);
@@ -99,6 +104,15 @@ function Planner() {
     );
   }
 
+  if (!adminOf.length) {
+    return (
+      <div className="mx-auto max-w-xl">
+        <PageHeader title="Community Plan" subtitle="Grow what your community needs." />
+        <Empty icon={Sprout} title="Community Plan" text="Only the community administrator can generate the community crop plan." action={<Button asChild><Link to="/recommendations">View Community Plan</Link></Button>} />
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto max-w-xl space-y-5">
       <PageHeader title="Community Kebun Planner" subtitle="Grow what your community needs." />
@@ -111,7 +125,7 @@ function Planner() {
         <div className="space-y-1.5">
           <Label>Community</Label>
           <select value={communityId} onChange={(e) => setCommunityId(e.target.value)} className="h-11 w-full rounded-md border border-input bg-card px-3 text-sm">
-            {memberships.data.map((m) => <option key={m.community_id} value={m.community_id}>{m.communities?.name}</option>)}
+            {adminOf.map((m) => <option key={m.community_id} value={m.community_id}>{m.communities?.name}</option>)}
           </select>
         </div>
         <div className="grid grid-cols-2 gap-3">
