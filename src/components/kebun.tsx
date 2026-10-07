@@ -140,7 +140,7 @@ export function SuitabilityBadge({ level }: { level?: string | null }) {
   return <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${cls}`}>{level ?? "—"} suitability</span>;
 }
 
-export function Avatar({ name, photo, size = "md" }: { name?: string | null; photo?: string | null; size?: "sm" | "md" | "lg" }) {
+export function Avatar({ name, photo, size = "md" }: { name?: string | null | undefined; photo?: string | null | undefined; size?: "sm" | "md" | "lg" }) {
   const dim = size === "sm" ? "h-8 w-8 text-xs" : size === "lg" ? "h-12 w-12 text-base" : "h-10 w-10 text-sm";
   const letters = (name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join("");
   return photo ? (
