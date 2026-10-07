@@ -71,16 +71,18 @@ function Recommendations() {
   if (plan.isLoading) return <Loading />;
   if (plan.error) return <ErrorState error={plan.error} onRetry={() => plan.refetch()} />;
   const recs = plan.data?.crop_recommendations ?? [];
+  const canEdit = plan.data?.created_by === user.id;
 
   return (
     <div className="space-y-5">
       <PageHeader title="Crop Recommendations" subtitle={plan.data ? `${plan.data.communities?.name ?? "Community"} · ${plan.data.farming_technique} · ${plan.data.community_skill_level}` : undefined} back />
       {!recs.length ? (
-        <Empty title="No crop plans yet." text="Start your first community plan." action={<Button asChild><Link to="/planner">Open planner</Link></Button>} />
+        <Empty title="No crop plans yet." text="Your community administrator hasn't generated a plan yet." action={<Button asChild><Link to="/planner">Open planner</Link></Button>} />
       ) : (
         <>
+          {!canEdit && <p className="rounded-xl bg-secondary p-3 text-sm text-secondary-foreground">This is your community's plan. Only the community administrator can generate or change it.</p>}
           <div className="flex gap-2">
-            <Button onClick={() => acceptAll(recs)} className="flex-1" disabled={!!busy || recs.every((r) => r.status === "accepted")}><CheckCheck className="mr-1 h-4 w-4" />Accept all</Button>
+            {canEdit && <Button onClick={() => acceptAll(recs)} className="flex-1" disabled={!!busy || recs.every((r) => r.status === "accepted")}><CheckCheck className="mr-1 h-4 w-4" />Accept all</Button>}
             <Button asChild variant="secondary" className="flex-1"><Link to="/schedule"><CalendarDays className="mr-1 h-4 w-4" />View Schedule</Link></Button>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
@@ -106,11 +108,11 @@ function Recommendations() {
                     <Metric label="Est. yield" value={`${expectedKg(name, r.recommended_quantity ?? 0)}`} sub="kg" />
                   </div>
                   <p className="mt-3 text-sm"><span className="font-semibold">Why: </span><span className="text-muted-foreground">{r.reason}</span></p>
-                  <div className="mt-4 grid grid-cols-3 gap-2">
-                    <Button size="sm" onClick={async () => { await accept(r); await qc.invalidateQueries(); toast.success(`${name} accepted & scheduled`); }} disabled={accepted || busy === r.id}>
+                  <div className={`mt-4 grid gap-2 ${canEdit ? "grid-cols-3" : "grid-cols-1"}`}>
+                    {canEdit && <><Button size="sm" onClick={async () => { await accept(r); await qc.invalidateQueries(); toast.success(`${name} accepted & scheduled`); }} disabled={accepted || busy === r.id}>
                       <Check className="mr-1 h-4 w-4" />{accepted ? "Done" : "Accept"}
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => { setAdjust(r); setQty(String(r.recommended_quantity ?? 1)); }}><SlidersHorizontal className="mr-1 h-4 w-4" />Adjust</Button>
+                    <Button size="sm" variant="outline" onClick={() => { setAdjust(r); setQty(String(r.recommended_quantity ?? 1)); }}><SlidersHorizontal className="mr-1 h-4 w-4" />Adjust</Button></>}
                     <Button size="sm" variant="secondary" asChild><Link to="/schedule"><Clock className="mr-1 h-4 w-4" />Schedule</Link></Button>
                   </div>
                 </div>

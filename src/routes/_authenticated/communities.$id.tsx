@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin, Users, Sprout, Wheat, Scale, CalendarDays, ClipboardPlus, ShieldCheck } from "lucide-react";
+import { MapPin, Users, Sprout, Wheat, Scale, CalendarDays, ClipboardPlus, ShieldCheck, MessageCircle, Crown, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Empty, ErrorState, Loading, PageHeader, StatCard, communityImage } from "@/components/kebun";
-import { useHarvests, useLatestPlan, useMemberCount, fmtDate, sumKg } from "@/lib/data";
+import { Avatar, Empty, ErrorState, Loading, PageHeader, StatCard, communityImage } from "@/components/kebun";
+import { useHarvests, useLatestPlan, useMemberCount, usePublicProfiles, useUser, fmtDate, sumKg } from "@/lib/data";
 import { expectedKg } from "@/lib/planner";
 
 export const Route = createFileRoute("/_authenticated/communities/$id")({
@@ -22,7 +22,9 @@ function CommunityDashboard() {
       return data;
     },
   });
+  const user = useUser();
   const members = useMemberCount(id);
+  const adminQ = usePublicProfiles([community.data?.admin_id]);
   const plan = useLatestPlan(id);
   const harvests = useHarvests(id);
 
@@ -31,6 +33,8 @@ function CommunityDashboard() {
   if (!community.data) return <Empty title="Community not found" action={<Button asChild><Link to="/communities">Browse communities</Link></Button>} />;
 
   const c = community.data;
+  const isAdmin = !!c.admin_id && c.admin_id === user.id;
+  const admin = c.admin_id ? adminQ.data?.get(c.admin_id) : undefined;
   const recs = plan.data?.crop_recommendations ?? [];
   const expected = Math.round(recs.reduce((s, r) => s + expectedKg(r.crops?.crop_name ?? "", r.recommended_quantity ?? 0), 0) * 10) / 10;
   const totals = sumKg(harvests.data);
@@ -48,9 +52,27 @@ function CommunityDashboard() {
       </div>
 
       <div className="grid grid-cols-3 gap-2">
-        <Button asChild className="h-auto flex-col gap-1 py-3"><Link to="/planner"><Sprout className="h-5 w-5" />Plan Crops</Link></Button>
+        {isAdmin
+          ? <Button asChild className="h-auto flex-col gap-1 py-3 text-center whitespace-normal"><Link to="/planner"><Sprout className="h-5 w-5" />Generate Community Plan</Link></Button>
+          : <Button asChild className="h-auto flex-col gap-1 py-3 text-center whitespace-normal"><Link to="/recommendations"><Sprout className="h-5 w-5" />View Community Plan</Link></Button>}
         <Button asChild variant="secondary" className="h-auto flex-col gap-1 py-3"><Link to="/schedule"><CalendarDays className="h-5 w-5" />View Schedule</Link></Button>
         <Button asChild variant="secondary" className="h-auto flex-col gap-1 py-3"><Link to="/harvest"><ClipboardPlus className="h-5 w-5" />Record Harvest</Link></Button>
+      </div>
+
+      <Link to="/communities/$id/chat" params={{ id }} className="card-surface flex items-center gap-3 p-4 hover:ring-2 hover:ring-fresh/30">
+        <span className="grid h-11 w-11 place-items-center rounded-xl bg-primary text-primary-foreground"><MessageCircle className="h-5 w-5" /></span>
+        <div className="flex-1"><p className="font-semibold">Community Chat</p><p className="text-xs text-muted-foreground">Talk with your neighbours in {c.name}</p></div>
+        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+      </Link>
+
+      <div className="card-surface flex items-center gap-3 p-4">
+        <Avatar name={admin?.full_name} photo={admin?.profile_photo} size="lg" />
+        <div className="flex-1">
+          <p className="flex items-center gap-1 text-xs font-medium text-muted-foreground"><Crown className="h-3.5 w-3.5 text-sun" />Community Admin</p>
+          <p className="font-semibold">{c.admin_id ? (admin?.full_name || "Community member") : "No admin yet"}</p>
+          {isAdmin && <p className="text-xs text-fresh">You are the community administrator.</p>}
+        </div>
+        {c.admin_id && <span className="rounded-full bg-secondary px-2 py-0.5 text-xs font-semibold text-primary">Community Admin</span>}
       </div>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -72,7 +94,7 @@ function CommunityDashboard() {
       <section>
         <h3 className="mb-3 font-semibold">Current crop plan</h3>
         {plan.isLoading ? <Loading /> : !recs.length ? (
-          <Empty title="No crop plans yet." text="Start your first community plan." action={<Button asChild size="sm"><Link to="/planner">Generate plan</Link></Button>} />
+          <Empty title="No crop plans yet." text={isAdmin ? "Start your first community plan." : "Only the community administrator can generate the community crop plan."} action={isAdmin ? <Button asChild size="sm"><Link to="/planner">Generate Community Plan</Link></Button> : undefined} />
         ) : (
           <div className="card-surface divide-y">
             {recs.map((r) => (
