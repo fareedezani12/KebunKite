@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { Home, Users, Sprout, MessageCircle, User, Loader2, AlertCircle, ChevronLeft, Leaf } from "lucide-react";
+import { Home, Users, Sprout, MessageCircle, User, Loader2, AlertCircle, ChevronLeft } from "lucide-react";
+import logoAsset from "@/assets/kebunkite-logo.png.asset.json";
 import garden from "@/assets/garden.jpg";
 import rooftop from "@/assets/rooftop.jpg";
 import kampung from "@/assets/kampung.jpg";
@@ -16,11 +17,8 @@ const NAV = [
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <div className="flex items-center gap-2">
-      <span className={`grid h-8 w-8 place-items-center rounded-lg ${light ? "bg-on-forest/15 text-on-forest" : "bg-primary text-primary-foreground"}`}>
-        <Leaf className="h-4 w-4" />
-      </span>
-      <span className={`font-display text-lg font-semibold ${light ? "text-on-forest" : "text-primary"}`}>KebunKite</span>
+    <div className={`flex shrink-0 items-center ${light ? "rounded-md bg-background px-2 py-1" : ""}`}>
+      <img src={logoAsset.url} alt="KebunKite" width={1448} height={1086} className="h-12 w-16 object-contain" />
     </div>
   );
 }
