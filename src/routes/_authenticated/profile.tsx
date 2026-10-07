@@ -6,7 +6,7 @@ import { ErrorState, Loading, PageHeader } from "@/components/kebun";
 import { useNeeds, useProfile, useUser } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/profile")({
-  head: () => ({ meta: [{ title: "Profile — KebunKite" }, { name: "description", content: "Your KebunKite household profile." }] }),
+  head: () => ({ meta: [{ title: "Profile — KebunKite" }, { name: "description", content: "Your KebunKite household profile." }, { property: "og:title", content: "Profile — KebunKite" }, { property: "og:description", content: "Your KebunKite household profile." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Profile,
 });
 

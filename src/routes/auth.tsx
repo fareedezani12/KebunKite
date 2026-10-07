@@ -14,8 +14,7 @@ export const Route = createFileRoute("/auth")({
       { title: "Sign up or log in — KebunKite" },
       { name: "description", content: "Join KebunKite to plan and grow food with your community." },
       { property: "og:title", content: "Join KebunKite" },
-      { property: "og:description", content: "Growing Communities, Securing Food." },
-    ],
+      { property: "og:description", content: "Growing Communities, Securing Food." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ],
   }),
   component: AuthPage,
 });

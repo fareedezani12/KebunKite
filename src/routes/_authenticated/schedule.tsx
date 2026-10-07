@@ -8,7 +8,7 @@ import { Empty, ErrorState, Loading, PageHeader } from "@/components/kebun";
 import { useSchedule, fmtDate } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/schedule")({
-  head: () => ({ meta: [{ title: "Planting & Harvest Schedule — KebunKite" }, { name: "description", content: "Track planting, watering, monitoring and harvest activities." }] }),
+  head: () => ({ meta: [{ title: "Planting & Harvest Schedule — KebunKite" }, { name: "description", content: "Track planting, watering, monitoring and harvest activities." }, { property: "og:title", content: "Planting & Harvest Schedule — KebunKite" }, { property: "og:description", content: "Track planting, watering, monitoring and harvest activities." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Schedule,
 });
 

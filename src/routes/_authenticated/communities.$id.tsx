@@ -8,7 +8,7 @@ import { useHarvests, useLatestPlan, useMemberCount, usePublicProfiles, useUser,
 import { expectedKg } from "@/lib/planner";
 
 export const Route = createFileRoute("/_authenticated/communities/$id")({
-  head: () => ({ meta: [{ title: "Community Dashboard — KebunKite" }, { name: "description", content: "Your community's crop plan, harvests and food security impact." }] }),
+  head: () => ({ meta: [{ title: "Community Dashboard — KebunKite" }, { name: "description", content: "Your community's crop plan, harvests and food security impact." }, { property: "og:title", content: "Community Dashboard — KebunKite" }, { property: "og:description", content: "Your community's crop plan, harvests and food security impact." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: CommunityDashboard,
 });
 

@@ -12,7 +12,7 @@ import { Empty, ErrorState, Loading, PageHeader, StatCard } from "@/components/k
 import { useCrops, useCurrentCommunity, useHarvests, useMemberships, useUser, fmtDate, sumKg } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/harvest")({
-  head: () => ({ meta: [{ title: "Crop Output & History — KebunKite" }, { name: "description", content: "Record harvests, track food output and share surplus." }] }),
+  head: () => ({ meta: [{ title: "Crop Output & History — KebunKite" }, { name: "description", content: "Record harvests, track food output and share surplus." }, { property: "og:title", content: "Crop Output & History — KebunKite" }, { property: "og:description", content: "Record harvests, track food output and share surplus." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Harvest,
 });
 

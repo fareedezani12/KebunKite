@@ -9,7 +9,7 @@ import { Empty, ErrorState, Loading, PageHeader, communityImage } from "@/compon
 import { useCommunities, useMemberships, usePublicProfiles, useUser } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/communities/")({
-  head: () => ({ meta: [{ title: "Discover Communities — KebunKite" }, { name: "description", content: "Find and join neighbourhood growing communities." }] }),
+  head: () => ({ meta: [{ title: "Discover Communities — KebunKite" }, { name: "description", content: "Find and join neighbourhood growing communities." }, { property: "og:title", content: "Discover Communities — KebunKite" }, { property: "og:description", content: "Find and join neighbourhood growing communities." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Discover,
 });
 

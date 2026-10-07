@@ -6,7 +6,7 @@ import { useCurrentCommunity, useHarvests, useLatestPlan, useMemberCount, usePro
 import { expectedKg } from "@/lib/planner";
 
 export const Route = createFileRoute("/_authenticated/home")({
-  head: () => ({ meta: [{ title: "Home — KebunKite" }, { name: "description", content: "Your community food security dashboard." }] }),
+  head: () => ({ meta: [{ title: "Home — KebunKite" }, { name: "description", content: "Your community food security dashboard." }, { property: "og:title", content: "Home — KebunKite" }, { property: "og:description", content: "Your community food security dashboard." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Home,
 });
 

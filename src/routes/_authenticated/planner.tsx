@@ -13,7 +13,7 @@ import { useCrops, useMemberships, useNeeds, useProfile, useUser } from "@/lib/d
 import { generatePlan, type Skill, type Technique } from "@/lib/planner";
 
 export const Route = createFileRoute("/_authenticated/planner")({
-  head: () => ({ meta: [{ title: "Community Kebun Planner — KebunKite" }, { name: "description", content: "Generate a practical crop plan from your community's food needs." }] }),
+  head: () => ({ meta: [{ title: "Community Kebun Planner — KebunKite" }, { name: "description", content: "Generate a practical crop plan from your community's food needs." }, { property: "og:title", content: "Community Kebun Planner — KebunKite" }, { property: "og:description", content: "Generate a practical crop plan from your community's food needs." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Planner,
 });
 

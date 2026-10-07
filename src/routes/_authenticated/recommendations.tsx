@@ -12,7 +12,7 @@ import { useLatestPlan, useUser } from "@/lib/data";
 import { CROP_META, expectedKg, scheduleFor } from "@/lib/planner";
 
 export const Route = createFileRoute("/_authenticated/recommendations")({
-  head: () => ({ meta: [{ title: "Crop Recommendations — KebunKite" }, { name: "description", content: "Recommended crops, quantities and harvest times for your community." }] }),
+  head: () => ({ meta: [{ title: "Crop Recommendations — KebunKite" }, { name: "description", content: "Recommended crops, quantities and harvest times for your community." }, { property: "og:title", content: "Crop Recommendations — KebunKite" }, { property: "og:description", content: "Recommended crops, quantities and harvest times for your community." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }, ] }),
   component: Recommendations,
 });
 
